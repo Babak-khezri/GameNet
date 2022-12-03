@@ -1,0 +1,38 @@
+@font-face{
+    font-family:b-farnaz;
+    src: url(../webfonts/B-Farnaz_0.ttf) format("opentype");;
+}
+
+body {
+    font-family:b-farnaz !important;
+    margin: 0 auto;
+    direction: rtl;
+    background-color: black;
+}
+.container {
+    height: 100vh;
+    padding: 0px;
+    border-left: 5px solid #dedede;
+    border-right: 5px solid #dedede;
+}
+
+nav.navbar a {
+    font-size: 30px;
+}
+
+nav.navbar li a {
+    color: rgb(178, 178, 178) !important;
+}
+
+.return-btn {
+    position: fixed;
+    left: 140px;
+    bottom: 30px;
+    width: 220px;
+    border-radius: 20px;
+    text-align: center;
+    font-size: 30px;
+    color: black;
+    border: 2px solid #fffdfd;
+    background: #ff0909;
+}

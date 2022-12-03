@@ -1,0 +1,75 @@
+{% extends 'base.html' %} {% load static %} {% block headers %}
+<link rel="stylesheet" href="{% static 'reserve/css/reservestyle.css'%}" type="text/css" />
+{% endblock headers %} {% block content %}
+<div class="content">
+	<div class="reserve">
+		<form method="post">
+			{% csrf_token %}
+			<select class="form-select mt-4" required name="systems">
+				{% if free_systems %}
+				<option disabled selected>نام سیستم</option>
+				{% else %}
+				<option disabled selected>سیستم خالی در دسترس نیست</option>
+				{% endif %} 
+				{% for system in free_systems %}
+				<option value="{{system.pk}}">{{system.name}}</option>
+				{% endfor %}
+			</select>
+			<input type="submit" class="submit mt-5" value="ثبت" />
+		</form>
+		<img class="w-100" src="{% static 'base/img/extra.jpg'%}" alt="" />
+	</div>
+
+	<div class="status">
+		<form method="get">
+			{% csrf_token %}
+			<input class="mt-4 mb-5" type="text" name="search" placeholder="جستجو" id="search" />
+		</form>
+
+		{% if system %} {% include "./tags/row-card.html" %} {% endif %} {% for system in busy_systems %} {% include "./tags/row-card.html" %} {% endfor %}
+	</div>
+
+	<a class="return-btn btn" href="/">بازگشت</a>
+</div>
+{% endblock content %} {% block javascript %}
+
+<script>
+	let info_btns = document.querySelectorAll("#info-btn");
+	info_btns.forEach(info_btn => {
+		info_btn.addEventListener("click", e => {
+
+			let url = "{% url 'reserve:calc_total_cost' 1 %}".replace("1", info_btn.name);
+			fetch(url, {
+				method: "Post",
+				headers: {
+					"x-CSRFToken": getCSRFToken(),
+					"X-Requested-With": "XMLHttpRequest",
+				},
+			}).then(function (response) {
+				return response.json();
+			}).then(function (data) {
+				let total_cost = document.querySelector("#total_cost"+info_btn.name)
+				let total_time = document.querySelector("#total_time"+info_btn.name)
+				total_cost.innerHTML = "هزینه نهایی : " + data['total_cost']
+				total_time.innerHTML = "کل زمان : " + data['total_time']
+			});
+		});
+	});
+
+	function getCSRFToken() {
+		var cookieValue = null;
+		if (document.cookie && document.cookie != "") {
+			var cookies = document.cookie.split(";");
+			for (var i = 0; i < cookies.length; i++) {
+				var cookie = jQuery.trim(cookies[i]);
+				if (cookie.substring(0, 10) == "csrftoken" + "=") {
+					cookieValue = decodeURIComponent(cookie.substring(10));
+					break;
+				}
+			}
+		}
+		return cookieValue;
+	}
+</script>
+
+{% endblock javascript %}

@@ -1,0 +1,9 @@
+<div class="card-row d-flex mb-3">
+	<h5 class="h-100" style="width: 35%" title="{{system.name}}">{{system.name|truncatechars:8}}</h5>
+	{% if system.is_busy %} 
+	<h5 class="h-100" title="مشغول" style="width: 40%;background:#ff7373;">هزینه : {{system.cost_per_hour}}</h5>
+  {% else %} 
+	<h5 class="h-100" title="آزاد" style="width: 40%;background:#85ff73;">هزینه : {{system.cost_per_hour}}</h5>
+  {% endif %}
+	<a href="{% url 'system:system_update' system.pk %}" class="btn btn-primary h-100 w-25"> جزئیات </a>
+</div>

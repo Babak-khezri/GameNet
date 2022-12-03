@@ -1,0 +1,34 @@
+<div class="card-row d-flex mb-3">
+    <h5 class="h-100 w-50"><i class="fa fa-laptop" aria-hidden="true"></i>
+        {{system.name}} </h5>
+    <h5 class="h-100 w-25">{{system.play_times.last.start_time|date:"H:i" }}</h5>
+    <button class="btn btn-primary h-100 w-25" data-toggle="modal" name = {{system.play_times.last.pk}} id = "info-btn" data-target="#exampleModal{{system.pk}}">
+        جزئیات
+    </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal{{system.pk}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">جزئیات سیستم</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        <div class="modal-body">
+          <h1>سیستم : {{system.name}}</h1>
+          <hr>
+          <h4>زمان شروع : {{system.play_times.last.start_time|date:"H:i" }}</h4>
+          <h4>هزینه هر ساعت : {{system.cost_per_hour}}</h4>
+          <h3 id = "total_time{{system.play_times.last.pk}}"></h3> 
+          <h3 id = "total_cost{{system.play_times.last.pk}}"></h3>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
+          <a href="{% url "reserve:close_time" system.pk %}"  class="btn btn-danger h-100 w-25">پایان</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

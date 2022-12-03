@@ -1,0 +1,45 @@
+.container {
+
+    background-image: url(../img/home.jpg);
+    background-attachment: fixed;
+    background-size: cover;
+
+}
+
+.content {
+    margin-top: 5%;
+    width: 65%;
+    height: 45%;
+}
+
+.menu {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+    height: 100%;
+    margin-right: 5%;
+
+}
+
+.footer {
+    background: linear-gradient(38deg, #000000,#000,#5d5a5a);
+    height: 78%;
+    color: aliceblue;
+}
+
+.menu-btn {
+    width: 281px;
+    height: 95px;
+    border-radius: 14px;
+    text-align: center;
+    font-size: 30px;
+    color: rgb(10, 10, 10);
+    border: 3px solid #fffdfd;
+    background: linear-gradient(330deg, #f27fff, #940095);
+}
+
+.system-info.d-flex {
+    justify-content: space-around;
+    margin-right: 75px;
+}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %} {% load static %} {% block headers %}
+<link rel="stylesheet" href="{% static 'account/css/loginstyle.css' %}" />
+{% endblock headers %} {% block content %}
+<div class="content mx-auto">
+	<form action="" method="post" class="login-form">
+		{% csrf_token %}
+        {% if error %}
+		<h2 onLoad="alert(error)" ></h2>
+		<h5 class="">{{error}}</h5>
+		{% endif %}
+		<input class="login-input" type="text" name="username" placeholder="نام کاربری" autofocus autocapitalize="none" maxlength="150" required="" id="id_username" />
+		<input class="login-input" type="password" name="password" placeholder="رمز عبور" required id="id_password" />
+		<input type="submit" class="login-btn" value="ورود" />
+		<a href="{% url 'account:forget_password' %}">اطلاعات را فراموش کرده ام...</a>
+	</form>
+</div>
+{% endblock content %}
+
+{% block javascript %}
+
+
+<script>
+	{% if error %}
+	alert("{{error}}");
+	{% endif %}
+
+</script>
+
+{% endblock javascript %}

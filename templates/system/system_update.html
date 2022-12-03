@@ -1,0 +1,21 @@
+{% extends 'base.html' %}{% load static %} {% block headers %}
+<link rel="stylesheet" href="{% static 'system/css/systemstyle.css'%}" type="text/css" />
+{% endblock headers %} {% block content %}
+<div class="content justify-content-center">
+	<form method="post" class="d-flex flex-column">
+		{% csrf_token %}
+
+		<input placeholder="نام سیستم" type="text" name="name" value="{{object.name}}" maxlength="100" required="" id="id_name" />
+		<input placeholder="رم" type="number" name="ram" value="{{object.ram}}" required="" id="id_ram" />
+
+		<input placeholder="گرافیک" type="number" name="graphic" value="{{object.graphic}}" required="" id="id_graphic" />
+
+		<input placeholder="هزینه هر ساعت" type="number" name="cost_per_hour" value="{{object.cost_per_hour}}" step="1" required="" id="id_cost_per_hour" />
+
+		<input type="submit" class="submit" value="آپدیت" />
+
+        <a href="#" class="btn btn-danger" >حذف سیستم</a>
+	</form>
+    <a class="return-btn btn" href="{% url 'system:system_list' %}">بازگشت</a>
+</div>
+{% endblock content %}

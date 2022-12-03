@@ -1,0 +1,26 @@
+{% extends 'base.html' %}{% load static %} {% block headers %}
+<link rel="stylesheet" href="{% static 'system/css/systemstyle.css'%}" type="text/css" />
+{% endblock headers %} {% block content %}
+<div class="content">
+	<div class="reserve">
+		<form action="{% url 'system:system_list' %}" method="post" class="h-100 py-5 d-flex">
+			{% csrf_token %}
+
+			<input placeholder="نام سیستم" type="text" name="name" maxlength="100" required="" id="id_name" />
+
+			<input placeholder="رم" type="number" name="ram" required="" id="id_ram" />
+
+			<input placeholder="گرافیک" type="number" name="graphic" required="" id="id_graphic" />
+
+			<input placeholder="هزینه هر ساعت" type="number" name="cost_per_hour" step="1" required="" id="id_cost_per_hour" />
+
+			<input type="submit" class="submit mt-5" value="ثبت سیستم" />
+		</form>
+	</div>
+	<div class="status">{% for system in systems %}
+		{% include './tags/row-card.html' %}
+		{% endfor %}</div>
+	<a class="return-btn btn" href="/">بازگشت</a>
+</div>
+
+{% endblock content %}

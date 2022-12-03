@@ -1,0 +1,60 @@
+{% extends 'base.html' %} {% load static %} {% block headers %}
+<link rel="stylesheet" href="{% static 'account/css/accountstyle.css'%}" type="text/css" />
+{% endblock headers %} {% block content %}
+<div class="content">
+	<div class="reserve">
+        {% if user.is_superuser %}
+		<form action="{% url 'account:employee_list' %}" method="post" class="h-100 py-3 d-flex">
+			{% csrf_token %}
+			
+				<input placeholder="نام" type="text" name="first_name" maxlength="150" required="" id="id_first_name" />
+			
+				<input placeholder="نام خانوادگی" type="text" name="last_name" maxlength="150" required="" id="id_last_name" />
+			
+				<input placeholder="حقوق" type="number" name="salary" step="1" required="" id="id_salary" />
+			
+				<input placeholder="نام کاربری" type="text" name="username" maxlength="150" required="" id="id_username" />
+				
+                <input placeholder="آدرس ایمیل" type="email" name="email" maxlength="150" required="" id="id_email" />
+                
+				<input placeholder="گذرواژه" type="password" name="password" maxlength="128" required="" id="id_password" />
+
+                <input placeholder="تکرار گذرواژه" type="password" name="password" maxlength="128" required="" id="re_password" />
+			</p>
+			<input type="submit" class="submit mt-2" disabled="true" id="sub_btn" value="ثبت" />
+		</form>
+        {% else %}
+        <h3>شما به این بخش دسترسی ندارید !</h3>
+        {% endif %}
+	</div>
+
+	<div class="status">
+		{% for user in users %}
+        {% if not user.is_superuser %}
+        {% include 'account/tags/row-card.html' %}
+        {% endif %}
+        {% endfor %}
+	</div>
+
+	<a class="return-btn btn" href="/">بازگشت</a>
+</div>
+{% endblock content %}
+
+{% block javascript %}
+
+<script>
+    let password_regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z#@*$%&\d]{8,}$/
+    let password1 = document.querySelector("#id_password");
+    let password2 = document.querySelector("#re_password");
+    sub_btn = document.querySelector("#sub_btn");
+    document.addEventListener("keyup",e=>{
+        if(password1.value === password2.value && password_regex.test(password1.value)){
+            sub_btn.disabled = false;
+        }else{
+            sub_btn.disabled = true;
+            console.log(e)
+        }
+    })
+</script>
+
+{% endblock javascript %}
